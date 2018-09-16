@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+	<h1>Bấm f12 để duyệt chương trình</h1>
+    <script src="lib.js"></script>
+    <script type="text/javascript">
+    //linearSearch(array,element);
+
+    //binarySearch(array,element);
+    let sizeOfArray = Number(prompt("Nhập kích cỡ mảng! "));
+    let array = loadArray(sizeOfArray);
+    print(array);
+
+    let secretNumber = Math.round(Math.random() * sizeOfArray);
+    console.log("secret number: " + secretNumber);
+
+    let newArr = array;
+    let input = 0, start = 0, end = newArr.length;
+   	do{
+   		input = Number(prompt("Nhập số dự đoán [start: " + start + " ; end: " + end+" ]"));
+   		if(input<start||input>end){
+   			alert("Giá trị vừa nhập không đúng, mời nhập lại [start: " + start + " ; end: " + end+" ]");
+   		}
+   		else if(checkValue(secretNumber,input)=="true"){
+
+   			showMessage("true", secretNumber);
+
+   			break;
+   		}else if(checkValue(secretNumber,input)=="greater"){
+
+   			showMessage("greater", secretNumber);
+
+   			newArr = createTheNewArray(start,input);
+
+   			console.log("arr =>> " + newArr);
+   			document.write("<br>arr =>> " + newArr);
+
+   			end = input-1;
+   		}else if(checkValue(secretNumber,input)=="lesser"){
+
+   			showMessage("lesser", secretNumber);
+
+   			newArr = createTheNewArray(input,end);
+
+   			console.log("arr =>> " + newArr);
+   			document.write("<br>arr =>> " + newArr);
+   			start = input+1;
+   		}
+   	}while(checkValue(secretNumber,input)=="greater"||
+   		checkValue(secretNumber,input)=="lesser"||
+   		input<start||input>end);
+    document.write("<br>secret number =>> " + secretNumber);
+    </script>
+</body>
+
+</html>
